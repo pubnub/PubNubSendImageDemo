@@ -26,11 +26,18 @@ if (hasGetUserMedia()) {
 		origin        : 'pubsub.pubnub.com',
 		ssl           : true
 	});
-
+	
+	var imageSrc = ""
 	//Subscribe to image-demo channel
 	pubnub.subscribe({
 		channel : "image-demo",
-		message : function(m){var image = document.getElementById("output"); image.src = m;},
+		message : function(m){
+			imageSrc.concat(m);
+			if (m.length < 10000) {
+				var image = document.getElementById("output");
+				image.src = m;
+			}
+		},
 		error   : function(error) {console.log(error)}
 	});
 } else {
@@ -78,16 +85,23 @@ document.getElementById("snap").addEventListener("click", function() {
 	//Base064 Encode
 	var dataURL = canvas.toDataURL('image/png');
 	var dataSize = dataURL.length;
-	console.log(dataSize)
-	
+	var messages = dataURL.length/10000;
+	console.log(dataSize);
 	console.log(dataURL);
+	
+	for(var i = 0; i < messages; i++) {
+		pubnub.publish({
+			channel : "image-demo",
+			message : dataURL.substring(10000*i, 10000*(i+1)-1),
+			error   : function(error){console.log(error)}
+		});
+	}
 	
 	pubnub.publish({
 		channel : "image-demo",
-		message : dataURL.substring(0, 10000),
+		message : dataURL.substring(10000*messages),
 		error   : function(error){console.log(error)}
 	});
-	
 	
 });
 </script>
