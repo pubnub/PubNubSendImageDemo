@@ -23,7 +23,10 @@ var pubnub = PUBNUB.init({
 //Subscribe to image-demo channel
 pubnub.subscribe({
 	channel : "image-demo",
-	message : function(m){console.log(m)}
+	message : function(m){
+		var image = document.getElementById("output");
+		image.src = m;
+	}
 })
 
 // Put event listeners into place
@@ -67,17 +70,7 @@ document.getElementById("snap").addEventListener("click", function() {
 	//Base064 Encode
 	var dataURL = canvas.toDataURL('image/png');
 	
-	var image = document.getElementById("output");
-	image.src = dataURL;
-	
 	console.log(dataURL);
-	
-	console.log("Sup");
-	
-	pubnub.publish({
-		channel : "image-demo",
-		message : "Hello"
-	});
 	
 	pubnub.publish({
 		channel : "image-demo",
