@@ -10,6 +10,21 @@
 
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
+
+//Connect to PubNub
+var pubnub = PUBNUB.init({
+	publish_key   : 'demo',
+	subscribe_key : 'demo',
+	origin        : 'pubsub.pubnub.com',
+	ssl           : true
+})
+
+//Subscribe to image-demo channel
+pubnub.subscribe({
+	channel : "image-demo",
+	message : function(m){console.log(m)}
+})
+
 // Put event listeners into place
 window.addEventListener("DOMContentLoaded", function() {
 	// Grab elements, create settings, etc.
@@ -40,18 +55,6 @@ window.addEventListener("DOMContentLoaded", function() {
 	} else {
 		
 	}
-	
-	//Connect to PubNub
-	pubnub = PUBNUB.init({
-		publish_key   : 'demo',
-		subscribe_key : 'demo'
-	})
-	
-	//Subscribe to image-demo channel
-	pubnub.subscribe({
-		channel : "image-demo",
-		message : function(m){console.log(m)}
-	})
 }, false);
 
 document.getElementById("snap").addEventListener("click", function() {
