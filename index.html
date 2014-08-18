@@ -67,6 +67,8 @@ document.getElementById("snap").addEventListener("click", function() {
 	var dataURL = canvas.toDataURL('image/png');
 	console.log(dataURL)
 	
+	console.log("Sup")
+	
 	pubnub.publish({
 		channel : "image-demo",
 		message : dataURL
