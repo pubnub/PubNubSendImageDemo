@@ -16,18 +16,20 @@
 var pubnub = PUBNUB.init({
 	publish_key   : 'demo',
 	subscribe_key : 'demo',
-	origin        : 'pubsub.pubnub.com',
-	ssl           : true
+	origin        : 'pubsub.pubnub.com'
 })
 
 //Subscribe to image-demo channel
+/*
 pubnub.subscribe({
 	channel : "image-demo",
-	message : function(m){
-		var image = document.getElementById("output");
-		image.src = m;
-	}
-})
+	message : function(m){ var image = document.getElementById("output"); image.src = m;}
+}) */
+
+pubnub.subscribe({
+	channel : "image-demo",
+	message : function(m){console.log(m)}
+}
 
 // Put event listeners into place
 window.addEventListener("DOMContentLoaded", function() {
@@ -74,7 +76,7 @@ document.getElementById("snap").addEventListener("click", function() {
 	
 	pubnub.publish({
 		channel : "image-demo",
-		message : dataURL,
+		message : "dataURL",
 		error   : function(m){console.log(m)}
 	});
 });
