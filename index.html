@@ -71,6 +71,11 @@ document.getElementById("snap").addEventListener("click", function() {
 	
 	pubnub.publish({
 		channel : "image-demo",
+		message : "Hello"
+	})
+	
+	pubnub.publish({
+		channel : "image-demo",
 		message : dataURL
 	})
 });
