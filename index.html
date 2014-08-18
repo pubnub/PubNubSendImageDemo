@@ -30,7 +30,7 @@ if (hasGetUserMedia()) {
 	//Subscribe to image-demo channel
 	pubnub.subscribe({
 		channel : "image-demo",
-		message : function(m){var image = document.getElementById("output"); image.src = dataURL;},
+		message : function(m){var image = document.getElementById("output"); image.src = m;},
 		error   : function(error) {console.log(error)}
 	});
 } else {
