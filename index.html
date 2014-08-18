@@ -7,6 +7,7 @@
 <video id="video" width="640" height="480" autoplay></video>
 <button id="snap">Snap Photo</button>
 <canvas id="canvas" width="640" height="480"></canvas>
+<img id="output" />
 
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
@@ -65,20 +66,24 @@ document.getElementById("snap").addEventListener("click", function() {
 	
 	//Base064 Encode
 	var dataURL = canvas.toDataURL('image/png');
-	console.log(dataURL)
 	
-	console.log("Sup")
+	var image = document.getElementById("output");
+	image.src = dataURL;
+	
+	console.log(dataURL);
+	
+	console.log("Sup");
 	
 	pubnub.publish({
 		channel : "image-demo",
 		message : "Hello"
-	})
+	});
 	
 	pubnub.publish({
 		channel : "image-demo",
 		message : dataURL,
 		error   : function(m){console.log(m)}
-	})
+	});
 });
 </script>
 
