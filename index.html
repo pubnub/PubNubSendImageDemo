@@ -61,7 +61,7 @@ document.getElementById("snap").addEventListener("click", function() {
 	var canvas = document.getElementById("canvas"),
 	context = canvas.getContext("2d"),
 	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 640, 480);
+	context.drawImage(video, 0, 0, 80, 60);
 	
 	//Base064 Encode
 	var dataURL = canvas.toDataURL('image/png');
