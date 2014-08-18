@@ -20,23 +20,22 @@ function hasGetUserMedia() {
 
 if (hasGetUserMedia()) {
   console.log("We're good to go!")
+	pubnub = PUBNUB.init({
+		publish_key   : 'demo',
+		subscribe_key : 'demo',
+		origin        : 'pubsub.pubnub.com',
+		ssl           : true
+	});
+
+	//Subscribe to image-demo channel
+	pubnub.subscribe({
+		channel : "image-demo",
+		message : function(m){console.log(m)},
+		error   : function(error) {console.log(error)}
+	});
 } else {
   alert('getUserMedia() is not supported in your browser');
 }
-
-//Connect to PubNub
-var pubnub = PUBNUB.init({
-	publish_key   : 'demo',
-	subscribe_key : 'demo',
-	origin        : 'pubsub.pubnub.com',
-	ssl           : true
-})
-
-//Subscribe to image-demo channel
-pubnub.subscribe({
-	channel : "image-demo",
-	message : function(m){console.log(m)}
-})
 
 // Put event listeners into place
 window.addEventListener("DOMContentLoaded", function() {
@@ -89,12 +88,13 @@ document.getElementById("snap").addEventListener("click", function() {
 	pubnub.publish({
 		channel : "image-demo",
 		message : "Hello"
+		error   : function(error){console.log(error)}
 	});
 	
 	pubnub.publish({
 		channel : "image-demo",
 		message : dataURL,
-		error   : function(m){console.log(m)}
+		error   : function(error){console.log(error)}
 	});
 });
 </script>
