@@ -76,7 +76,7 @@ document.getElementById("snap").addEventListener("click", function() {
 	
 	pubnub.publish({
 		channel : "image-demo",
-		message : dataURL
+		message : dataURL,
 		error   : function(m){console.log(m)}
 	})
 });
