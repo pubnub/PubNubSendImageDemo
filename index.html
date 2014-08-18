@@ -12,6 +12,18 @@
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
 
+//Check for getUserMedia()
+function hasGetUserMedia() {
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
+
+if (hasGetUserMedia()) {
+  console.log("We're good to go!")
+} else {
+  alert('getUserMedia() is not supported in your browser');
+}
+
 //Connect to PubNub
 var pubnub = PUBNUB.init({
 	publish_key   : 'demo',
