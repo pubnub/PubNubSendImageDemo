@@ -16,20 +16,15 @@
 var pubnub = PUBNUB.init({
 	publish_key   : 'demo',
 	subscribe_key : 'demo',
-	origin        : 'pubsub.pubnub.com'
+	origin        : 'pubsub.pubnub.com',
+	ssl           : true
 })
 
 //Subscribe to image-demo channel
-/*
-pubnub.subscribe({
-	channel : "image-demo",
-	message : function(m){ var image = document.getElementById("output"); image.src = m;}
-}) */
-
 pubnub.subscribe({
 	channel : "image-demo",
 	message : function(m){console.log(m)}
-}
+})
 
 // Put event listeners into place
 window.addEventListener("DOMContentLoaded", function() {
@@ -72,11 +67,21 @@ document.getElementById("snap").addEventListener("click", function() {
 	//Base064 Encode
 	var dataURL = canvas.toDataURL('image/png');
 	
+	var image = document.getElementById("output");
+	image.src = dataURL;
+	
 	console.log(dataURL);
+	
+	console.log("Sup");
 	
 	pubnub.publish({
 		channel : "image-demo",
-		message : "dataURL",
+		message : "Hello"
+	});
+	
+	pubnub.publish({
+		channel : "image-demo",
+		message : dataURL,
 		error   : function(m){console.log(m)}
 	});
 });
