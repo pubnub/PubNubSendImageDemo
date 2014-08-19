@@ -18,6 +18,21 @@ function hasGetUserMedia() {
             navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 
+//Compress beneath max message size in kb. Returns null if compression can't get image small enough.
+function compressImage(canvas, size) {
+	compression = 1.0;
+	while(compression > 0.01) {
+		dataURL = canvas.toDataURL('image/jpeg', compression);
+		if (dataURL.length/1012 < size) return dataURL;
+		if (compression <= 0.1) {
+			compression -= 0.01;
+		} else {
+			compression -= 0.1;
+		}
+	}
+	return null;
+}
+
 if (hasGetUserMedia()) {
   console.log("We're good to go!")
 	pubnub = PUBNUB.init({
@@ -26,17 +41,12 @@ if (hasGetUserMedia()) {
 		origin        : 'pubsub.pubnub.com',
 		ssl           : true
 	});
-	
-	var imageSrc = ""
 	//Subscribe to image-demo channel
 	pubnub.subscribe({
 		channel : "image-demo",
-		message : function(m){
-			imageSrc.concat(m);
-			if (m.length < 10000) {
-				var image = document.getElementById("output");
-				image.src = m;
-			}
+		message : function(m){ //On receipt of a message, interpret it as a Base-64 encoded image and display it on page.
+			var image = document.getElementById("output");
+			image.src = m;
 		},
 		error   : function(error) {console.log(error)}
 	});
@@ -76,30 +86,19 @@ window.addEventListener("DOMContentLoaded", function() {
 	}
 }, false);
 
+//Send snapshot of vido on click.
 document.getElementById("snap").addEventListener("click", function() {
 	var canvas = document.getElementById("canvas"),
 	context = canvas.getContext("2d"),
 	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 80, 60);
+	context.drawImage(video, 0, 0, 640, 480);
 	
-	//Base064 Encode
-	var dataURL = canvas.toDataURL('image/png');
-	var dataSize = dataURL.length;
-	var messages = dataURL.length/10000;
-	console.log(dataSize);
-	console.log(dataURL);
-	
-	for(var i = 0; i < messages; i++) {
-		pubnub.publish({
-			channel : "image-demo",
-			message : dataURL.substring(10000*i, 10000*(i+1)-1),
-			error   : function(error){console.log(error)}
-		});
-	}
+	//Base064 Encode & compress below 20 kb
+	var dataURL = compressImage(canvas, 20);
 	
 	pubnub.publish({
 		channel : "image-demo",
-		message : dataURL.substring(10000*messages),
+		message : dataURL,
 		error   : function(error){console.log(error)}
 	});
 	
