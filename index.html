@@ -114,12 +114,12 @@ window.addEventListener("DOMContentLoaded", function() {
 //Send snapshot of vido on click.
 document.getElementById("snap").addEventListener("click", function() {
 	var canvas = document.getElementById("canvas"),
-	context = canvas.getContext("2d"),
+	context = canvas.getContext("2d");
 	if (hasGetUserMedia()) {
-		video = document.getElementById("video");
+		var video = document.getElementById("video");
 		context.drawImage(video, 0, 0, 240, 180);
 	} else {
-		def = document.getElementById("defaultImg");
+		var def = document.getElementById("defaultImg");
 		context.drawImage(def, 0, 0, 240, 180);
 	}
 	
