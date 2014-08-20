@@ -54,10 +54,6 @@ function compressImage(canvas, size) {
 
 if (hasGetUserMedia()) {
   console.log("We're good to go!")
-	var def = document.getElementById("defaultImg");
-	def.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg';
-	def.width = 240;
-	def.height = 180;
 	pubnub = PUBNUB.init({
 		publish_key   : 'demo',
 		subscribe_key : 'demo',
