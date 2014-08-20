@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<meta charset=”utf-8”>
+	<link rel=”stylesheet” href=”css/bootstrap.css”  type=”text/css”/>
+</head>
 <body>
 
 <div class="text-center">
 	<h1>Send an Image With PubNub</h1><br><br>
 	Camera<br>
-	<video id="video" width="320" height="240" autoplay></video><br>
+	<video id="video" width="640" height="480" autoplay></video><br>
 	<button id="snap">Snap Photo</button>
 </div>
 <div class="container">
 	<div class="col-sm-6">
 		Captured Image:<br>
-		<canvas id="canvas" width="320" height="240"></canvas>
+		<canvas id="canvas" width="640" height="480"></canvas>
 	</div>
 	<div class="col-sm-6">
 		Image Sent Over PubNub:<br>
