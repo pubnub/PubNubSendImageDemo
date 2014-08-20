@@ -4,10 +4,22 @@
 
 <h1>Send an Image With PubNub</h1>
 
-<video id="video" width="640" height="480" autoplay></video>
-<button id="snap">Snap Photo</button>
-<canvas id="canvas" width="640" height="480"></canvas>
-<img id="output" />
+<div class="text-center">
+	<h1>Send an Image With PubNub</h1><br><br>
+	Camera<br>
+	<video id="video" width="640" height="480" autoplay></video><br>
+	<button id="snap">Snap Photo</button>
+</div>
+<div class="container">
+	<div class="col-sm-6">
+		Captured Image:<br>
+		<canvas id="canvas" width="320" height="240"></canvas>
+	</div>
+	<div class="col-sm-6">
+		Image Sent Over PubNub:<br>
+		<img id="output" />
+	</div>
+</div>
 
 <script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
@@ -88,7 +100,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
 //Send snapshot of vido on click.
 document.getElementById("snap").addEventListener("click", function() {
-	var video = document.getElementById("video");
+	var canvas = document.getElementById("canvas"),
+	context = canvas.getContext("2d"),
+	video = document.getElementById("video");
+	context.drawImage(video, 0, 0, 640, 480);
 	
 	//Base064 Encode & compress below 20 kb
 	var dataURL = compressImage(video, 20);
