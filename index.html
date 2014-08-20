@@ -17,7 +17,7 @@
 	<div class="col-md-4">
 		Camera:<br>
 		<video id="video" width="240" height="180" autoplay></video><br>
-		<img id="defaultImg" src="http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg" width="240" height="180"/>
+		<img id="defaultImg" /><br>
 		<button id="snap">Snap Photo</button>
 	</div>
 	<div class="col-md-4">
@@ -56,6 +56,8 @@ if (hasGetUserMedia()) {
   console.log("We're good to go!")
 	var def = document.getElementById("defaultImg");
 	def.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg';
+	def.width = 240;
+	def.height = 180;
 	pubnub = PUBNUB.init({
 		publish_key   : 'demo',
 		subscribe_key : 'demo',
@@ -75,6 +77,8 @@ if (hasGetUserMedia()) {
   alert('getUserMedia() is not supported in your browser. Using default image.');
 	var def = document.getElementById("defaultImg");
 	def.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg';
+	def.width = 240;
+	def.height = 180;
 }
 
 // Put event listeners into place
