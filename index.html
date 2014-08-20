@@ -19,10 +19,10 @@ function hasGetUserMedia() {
 }
 
 //Compress beneath max message size in kb. Returns null if compression can't get image small enough.
-function compressImage(canvas, size) {
-	compression = 1.0;
+function compressImage(image, size) {
+	var compression = 1.0;
 	while(compression > 0.01) {
-		dataURL = canvas.toDataURL('image/jpeg', compression);
+		var dataURL = image.toDataURL('image/jpeg', compression);
 		if (dataURL.length/1012 < size) return dataURL;
 		if (compression <= 0.1) {
 			compression -= 0.01;
@@ -88,13 +88,15 @@ window.addEventListener("DOMContentLoaded", function() {
 
 //Send snapshot of vido on click.
 document.getElementById("snap").addEventListener("click", function() {
-	var canvas = document.getElementById("canvas"),
-	context = canvas.getContext("2d"),
-	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 640, 480);
+	var video = document.getElementById("video");
 	
 	//Base064 Encode & compress below 20 kb
-	var dataURL = compressImage(canvas, 20);
+	var dataURL = compressImage(video, 20);
+	
+	if (dataURL == null) {
+		alert("We couldn't compress the image small enough");
+		return;
+	}
 	
 	pubnub.publish({
 		channel : "image-demo",
