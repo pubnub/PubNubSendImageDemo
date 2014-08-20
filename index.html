@@ -9,16 +9,18 @@
 
 <div class="text-center">
 	<h1>Send an Image With PubNub</h1><br><br>
-	Camera<br>
-	<video id="video" width="320" height="240" autoplay></video><br>
-	<button id="snap">Snap Photo</button>
 </div>
-<div class="container">
-	<div class="col-md-6">
+<div class="text-center">
+	<div class="col-md-4">
+		Camera:<br>
+		<video id="video" width="320" height="240" autoplay></video><br>
+		<button id="snap">Snap Photo</button>
+	</div>
+	<div class="col-md-4">
 		Captured Image:<br>
 		<canvas id="canvas" width="320" height="240"></canvas>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		Image Sent Over PubNub:<br>
 		<img id="output" />
 	</div>
