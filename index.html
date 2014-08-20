@@ -130,6 +130,7 @@ document.getElementById("snap").addEventListener("click", function() {
 		return;
 	}
 	
+	//Send the image with PubNub!
 	window.pubnub.publish({
 		channel : "image-demo",
 		message : dataURL,
