@@ -52,23 +52,24 @@ function compressImage(canvas, size) {
 	return null;
 }
 
+window.pubnub = PUBNUB.init({
+	publish_key   : 'demo',
+	subscribe_key : 'demo',
+	origin        : 'pubsub.pubnub.com',
+	ssl           : true
+});
+//Subscribe to image-demo channel
+window.pubnub.subscribe({
+	channel : "image-demo",
+	message : function(m){ //On receipt of a message, interpret it as a Base-64 encoded image and display it on page.
+		var image = document.getElementById("output");
+		image.src = m;
+	},
+	error   : function(error) {console.log(error)}
+});
+
 if (hasGetUserMedia()) {
   console.log("We're good to go!")
-	window.pubnub = PUBNUB.init({
-		publish_key   : 'demo',
-		subscribe_key : 'demo',
-		origin        : 'pubsub.pubnub.com',
-		ssl           : true
-	});
-	//Subscribe to image-demo channel
-	window.pubnub.subscribe({
-		channel : "image-demo",
-		message : function(m){ //On receipt of a message, interpret it as a Base-64 encoded image and display it on page.
-			var image = document.getElementById("output");
-			image.src = m;
-		},
-		error   : function(error) {console.log(error)}
-	});
 } else {
   alert('getUserMedia() is not supported in your browser. Using default image.');
 	var def = document.getElementById("defaultImg");
