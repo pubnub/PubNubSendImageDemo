@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h1>My First JavaScript</h1>
+<h1>Send an Image With PubNub</h1>
 
 <video id="video" width="640" height="480" autoplay></video>
 <button id="snap">Snap Photo</button>
@@ -88,10 +88,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
 //Send snapshot of vido on click.
 document.getElementById("snap").addEventListener("click", function() {
-	var canvas = document.getElementById("canvas"),
-	context = canvas.getContext("2d"),
-	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 640, 480);
+	var canvas = document.getElementById("canvas")
 	
 	//Base064 Encode & compress below 20 kb
 	var dataURL = compressImage(canvas, 20);
