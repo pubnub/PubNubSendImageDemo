@@ -54,14 +54,14 @@ function compressImage(canvas, size) {
 
 if (hasGetUserMedia()) {
   console.log("We're good to go!")
-	pubnub = PUBNUB.init({
+	window.pubnub = PUBNUB.init({
 		publish_key   : 'demo',
 		subscribe_key : 'demo',
 		origin        : 'pubsub.pubnub.com',
 		ssl           : true
 	});
 	//Subscribe to image-demo channel
-	pubnub.subscribe({
+	window.pubnub.subscribe({
 		channel : "image-demo",
 		message : function(m){ //On receipt of a message, interpret it as a Base-64 encoded image and display it on page.
 			var image = document.getElementById("output");
@@ -127,7 +127,7 @@ document.getElementById("snap").addEventListener("click", function() {
 		return;
 	}
 	
-	pubnub.publish({
+	window.pubnub.publish({
 		channel : "image-demo",
 		message : dataURL,
 		error   : function(error){console.log(error)}
