@@ -17,6 +17,7 @@
 	<div class="col-md-4">
 		Camera:<br>
 		<video id="video" width="240" height="180" autoplay></video><br>
+		<img id="defaultImg" />
 		<button id="snap">Snap Photo</button>
 	</div>
 	<div class="col-md-4">
@@ -70,6 +71,8 @@ if (hasGetUserMedia()) {
 	});
 } else {
   alert('getUserMedia() is not supported in your browser. Using default image.');
+	var def = document.getElementById("defaultImg");
+	def.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg';
 }
 
 // Put event listeners into place
@@ -99,9 +102,6 @@ window.addEventListener("DOMContentLoaded", function() {
 			video.src = window.URL.createObjectURL(stream);
 			video.play();
 		}, errBack);
-	} else {
-		video.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg'
-		video.play();
 	}
 }, false);
 
@@ -109,8 +109,13 @@ window.addEventListener("DOMContentLoaded", function() {
 document.getElementById("snap").addEventListener("click", function() {
 	var canvas = document.getElementById("canvas"),
 	context = canvas.getContext("2d"),
-	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 240, 180);
+	if (hasGetUserMedia()) {
+		video = document.getElementById("video");
+		context.drawImage(video, 0, 0, 240, 180);
+	} else {
+		def = document.getElementById("defaultImg");
+		context.drawImage(def, 0, 0, 240, 180);
+	}
 	
 	//Base064 Encode & compress below 20 kb
 	var dataURL = compressImage(canvas, 20);
