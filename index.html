@@ -13,12 +13,12 @@
 <div class="text-center">
 	<div class="col-md-4">
 		Camera:<br>
-		<video id="video" width="320" height="240" autoplay></video><br>
+		<video id="video" width="240" height="180" autoplay></video><br>
 		<button id="snap">Snap Photo</button>
 	</div>
 	<div class="col-md-4">
 		Captured Image:<br>
-		<canvas id="canvas" width="320" height="240"></canvas>
+		<canvas id="canvas" width="240" height="180"></canvas>
 	</div>
 	<div class="col-md-4">
 		Image Sent Over PubNub:<br>
@@ -108,7 +108,7 @@ document.getElementById("snap").addEventListener("click", function() {
 	var canvas = document.getElementById("canvas"),
 	context = canvas.getContext("2d"),
 	video = document.getElementById("video");
-	context.drawImage(video, 0, 0, 320, 240);
+	context.drawImage(video, 0, 0, 240, 180);
 	
 	//Base064 Encode & compress below 20 kb
 	var dataURL = compressImage(canvas, 20);
