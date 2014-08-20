@@ -2,8 +2,11 @@
 <html>
 <head>
 	<meta charset=”utf-8”>
-	<!-- Latest compiled and minified CSS -->
+	<!-- compiled and minified CSS -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	
+	<!-- PubNub! -->
+	<script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 </head>
 <body>
 
@@ -25,8 +28,6 @@
 		<img id="output" />
 	</div>
 </div>
-
-<script src=http://cdn.pubnub.com/pubnub.min.js ></script>
 <script>
 
 //Check for getUserMedia()
@@ -68,7 +69,7 @@ if (hasGetUserMedia()) {
 		error   : function(error) {console.log(error)}
 	});
 } else {
-  alert('getUserMedia() is not supported in your browser');
+  alert('getUserMedia() is not supported in your browser. Using default image.');
 }
 
 // Put event listeners into place
@@ -99,7 +100,8 @@ window.addEventListener("DOMContentLoaded", function() {
 			video.play();
 		}, errBack);
 	} else {
-		
+		video.src = 'http://s3.amazonaws.com/pubnub/PubNub-Zombie-Apocalypse.jpg'
+		video.play();
 	}
 }, false);
 
@@ -125,6 +127,8 @@ document.getElementById("snap").addEventListener("click", function() {
 	});
 	
 });
+
+//Codepen for this project: http://codepen.io/anon/pen/LeKFD
 </script>
 
 </body>
