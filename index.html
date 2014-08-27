@@ -58,10 +58,12 @@ function destroyImage(image) {
 	var dstrMsg = document.getElementById("output");
 	var countdown = 10
 	dstrMsg.innerHTML = ("Destroying image in..." + countdown);
+	console.log("Destroying image in..." + countdown);
 	setTimeout(function(){
 		if (countdown > 1) {
 			countdown--;
 			dstrMsg.innerHTML = ("Destroying image in..." + countdown);
+			console.log("Destroying image in..." + countdown);
 		} else {
 			image.src = "";
 			dstrMsg.innerHTML = ("The image here will self destruct after 10 seconds");
