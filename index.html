@@ -27,7 +27,7 @@
 	<div class="col-md-4">
 		Image Sent Over PubNub:<br>
 		<img id="output" />
-		<p id="dstrMsg">The image here will self destruct after 10 seconds</p>
+		<p id="dstrMsg" contenteditable="true">The image here will self destruct after 10 seconds</p>
 	</div>
 </div>
 <script>
@@ -55,7 +55,7 @@ function compressImage(canvas, size) {
 
 //message destruction after 10 seconds
 function destroyImage(image) {
-	var dstrMsg = document.getElementById("output");
+	var dstrMsg = document.getElementById("dstrMsg");
 	var countdown = 10
 	dstrMsg.innerHTML = ("Destroying image in..." + countdown);
 	console.log("Destroying image in..." + countdown);
