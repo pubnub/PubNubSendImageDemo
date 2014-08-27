@@ -64,14 +64,14 @@ function destroyImage(image) {
 			countdown--;
 			dstrMsg.innerHTML = ("Destroying image in..." + countdown);
 			console.log("Destroying image in..." + countdown);
-			setTimeout(destroy, 10000);
+			setTimeout(destroy, 1000);
 		} else {
 			image.src = "";
 			dstrMsg.innerHTML = ("The image here will self destruct after 10 seconds");
 			console.log("Image destroyed!");
 		}
 	}
-	setTimeout(destroy, 10000);
+	setTimeout(destroy, 1000);
 }
 
 window.pubnub = PUBNUB.init({
