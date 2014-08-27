@@ -53,10 +53,15 @@ function compressImage(canvas, size) {
 	return null;
 }
 
+//globals so that a new message will reset the destruction cycle
+var countdown
+var timer
+
 //message destruction after 10 seconds
 function destroyImage(image) {
 	var dstrMsg = document.getElementById("dstrMsg");
-	var countdown = 10
+	countdown = 10;
+	clearTimeout(timer);
 	dstrMsg.innerHTML = ("Destroying image in..." + countdown);
 	console.log("Destroying image in..." + countdown);
 	function destroy(){
@@ -64,14 +69,14 @@ function destroyImage(image) {
 			countdown--;
 			dstrMsg.innerHTML = ("Destroying image in..." + countdown);
 			console.log("Destroying image in..." + countdown);
-			setTimeout(destroy, 1000);
+			timer = setTimeout(destroy, 1000);
 		} else {
 			image.src = "";
 			dstrMsg.innerHTML = ("The image here will self destruct after 10 seconds");
 			console.log("Image destroyed!");
 		}
 	}
-	setTimeout(destroy, 1000);
+	timer = setTimeout(destroy, 1000);
 }
 
 window.pubnub = PUBNUB.init({
