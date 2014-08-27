@@ -55,7 +55,7 @@ function compressImage(canvas, size) {
 
 //message destruction after 10 seconds
 function destroyImage(image) {
-	var dstrMsg = document.getElementByID("dstrMsg");
+	var dstrMsg = document.getElementById("output");
 	var countdown = 10
 	dstrMsg.innerHTML = ("Destroying image in..." + countdown);
 	setTimeout(function(){
